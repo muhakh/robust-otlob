@@ -23,17 +23,6 @@ class CartPolicy
     }
 
     /**
-     * Determine whether the user can create carts.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can update the cart.
      *
      * @param  \App\User  $user

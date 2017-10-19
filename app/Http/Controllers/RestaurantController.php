@@ -24,11 +24,12 @@ class RestaurantController extends Controller
 
     public function show($id)
     {
-        return Restaurant::findOrFail($id)->with('menu_items')->get();
+        return Restaurant::findOrFail($id)->with('menu_items')->first();
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', Restaurant::class);
         $restaurant = Restaurant::create($request->all());
 
         return response()->json($restaurant, 201);
@@ -37,6 +38,7 @@ class RestaurantController extends Controller
     public function update(Request $request, $id)
     {
         $restaurant = Restaurant::findOrFail($id);
+        $this->authorize('update', $restaurant);
         $restaurant->update($request->all());
 
         return response()->json($restaurant, 200);
@@ -45,6 +47,7 @@ class RestaurantController extends Controller
     public function destroy(Request $request, $id)
     {
         $restaurant = Restaurant::findOrFail($id);
+        $this->authorize('delete', $restaurant);
         $restaurant->delete();
 
         return response()->json(null, 204);

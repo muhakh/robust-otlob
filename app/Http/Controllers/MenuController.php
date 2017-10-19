@@ -19,6 +19,7 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', $request->manager_id, MenuItem::class);
         $menu = MenuItem::create($request->all());
         return response()->json($menu, 201);
     }
@@ -26,6 +27,7 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $menu = MenuItem::findOrFail($id);
+        $this->authorize('update', $menu);
         $menu->update($request->all());
 
         return response()->json($menu, 200);
@@ -34,6 +36,7 @@ class MenuController extends Controller
     public function destroy(Request $request, $id)
     {
         $menu = MenuItem::findOrFail($id);
+        $this->authorize('update', $menu);
         $menu->delete();
 
         return response()->json(null, 204);

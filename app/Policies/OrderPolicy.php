@@ -23,14 +23,15 @@ class OrderPolicy
     }
 
     /**
-     * Determine whether the user can create orders.
+     * Determine whether the user can view all the orders.
      *
      * @param  \App\User  $user
+     * @param  \App\Order  $order
      * @return mixed
      */
-    public function create(User $user)
+    public function viewIndex(User $user)
     {
-        //
+        return $user->is_superuser == true;
     }
 
     /**

@@ -19,12 +19,15 @@ class CartController extends Controller
 
     public function index()
     {
+        $this->authorize('viewIndex', Cart::class);
         return Cart::with('menu_items')->get();
     }
 
     public function show($id)
     {
-        return Cart::find($id)->with('menu_items')->get();
+        $cart = Cart::find($id)->with('menu_items')->first();
+        $this->authorize('view', $cart);
+        return $cart;
     }
 
     public function store(Request $request)
@@ -37,6 +40,7 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         $cart = Cart::findOrFail($id);
+        $this->authorize('update', $cart);
         $cart->update($request->all());
 
         return response()->json($cart, 200);
@@ -45,6 +49,7 @@ class CartController extends Controller
     public function destroy(Request $request, $id)
     {
         $cart = Cart::findOrFail($id);
+        $this->authorize('delete', $cart);
         $cart->delete();
 
         return response()->json(null, 204);
