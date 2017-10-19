@@ -18,14 +18,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Restaurant's Routes
-Route::get('restaurants', 'RestaurantController@index');
-Route::get('restaurants/{id}', 'RestaurantController@display');
-Route::post('restaurants', 'RestaurantController@create');
-Route::put('restaurants/{id}', 'RestaurantController@update');
-Route::delete('restaurants/{id}', 'RestaurantController@delete');
+Route::resource('restaurants', 'RestaurantController',
+                ['except' => ['create', 'edit']]);
 
 // Menus Routes
-Route::get('restaurants/{restaurant_id}/menu/items/{item_id}', 'MenuController@display');
-Route::post('restaurants/{restaurant_id}/menu/items', 'MenuController@create');
+Route::post('restaurants/{restaurant_id}/menu/items', 'MenuController@store');
 Route::put('restaurants/{restaurant_id}/menu/items/{item_id}', 'MenuController@update');
-Route::delete('restaurants/{restaurant_id}/menu/items/{item_id}', 'MenuController@delete');
+Route::delete('restaurants/{restaurant_id}/menu/items/{item_id}', 'MenuController@destroy');
+
+// Order Routes
+Route::resource('orders', 'OrderController',
+                ['except' => ['create', 'edit']]);
+
+// Cart Routes
+Route::resource('carts', 'CartController',
+                ['except' => ['create', 'edit']]);
