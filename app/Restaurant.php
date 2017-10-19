@@ -15,4 +15,12 @@ class Restaurant extends Model
     {
         return $this->hasMany('App\MenuItem');
     }
+
+    /**
+     * The user that the cart belongs to.
+     */
+    public function users()
+    {
+        return $this->belongsTo('App\User', 'manager_id');
+    }
 }
