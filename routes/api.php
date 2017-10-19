@@ -25,7 +25,7 @@ Route::put('restaurants/{id}', 'RestaurantController@update');
 Route::delete('restaurants/{id}', 'RestaurantController@delete');
 
 // Menus Routes
-Route::get('restaurants/{id}/menu/items/{id}', 'MenuController@display');
-Route::post('restaurants/{id}/menu/items', 'MenuController@create');
-Route::put('restaurants/{id}/menu/items/{id}', 'MenuController@update');
-Route::delete('restaurants/{id}/menu/items/{id}', 'MenuController@delete');
+Route::get('restaurants/{restaurant_id}/menu/items/{item_id}', 'MenuController@display');
+Route::post('restaurants/{restaurant_id}/menu/items', 'MenuController@create');
+Route::put('restaurants/{restaurant_id}/menu/items/{item_id}', 'MenuController@update');
+Route::delete('restaurants/{restaurant_id}/menu/items/{item_id}', 'MenuController@delete');
