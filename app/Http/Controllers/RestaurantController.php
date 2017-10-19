@@ -7,20 +7,31 @@ use App\Restaurant;
 
 class RestaurantController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api')->only(['store', 'update', 'destroy']);
+    }
+
     public function index()
     {
         return Restaurant::all();
     }
 
-    public function display($id)
+    public function show($id)
     {
-        return Restaurant::find($id);
+        return Restaurant::findOrFail($id)->with('menu_items')->get();
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $restaurant = Restaurant::create($request->all());
-        return response()->json($article, 201);
+
+        return response()->json($restaurant, 201);
     }
 
     public function update(Request $request, $id)
@@ -31,7 +42,7 @@ class RestaurantController extends Controller
         return response()->json($restaurant, 200);
     }
 
-    public function delete(Request $request, $id)
+    public function destroy(Request $request, $id)
     {
         $restaurant = Restaurant::findOrFail($id);
         $restaurant->delete();
