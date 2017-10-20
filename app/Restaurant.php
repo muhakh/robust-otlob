@@ -29,7 +29,7 @@ class Restaurant extends Model
      */
     public function areas()
     {
-        return $this->belongsToMany('App\Area', 'restaurant_areas', 'area_id', 'restaurant_id')
+        return $this->belongsToMany('App\Area', 'restaurant_areas', 'restaurant_id', 'area_id')
                     ->withTimestamps();
     }
 }
