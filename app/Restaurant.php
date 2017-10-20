@@ -23,4 +23,13 @@ class Restaurant extends Model
     {
         return $this->belongsTo('App\User', 'manager_id');
     }
+
+    /**
+     * The areas that belong to the restaurant.
+     */
+    public function areas()
+    {
+        return $this->belongsToMany('App\Area', 'restaurant_areas', 'area_id', 'restaurant_id')
+                    ->withTimestamps();
+    }
 }

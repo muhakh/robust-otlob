@@ -24,7 +24,7 @@ class RestaurantController extends Controller
 
     public function show($id)
     {
-        return Restaurant::findOrFail($id)->with('menu_items')->first();
+        return Restaurant::with('menu_items')->findOrFail($id);
     }
 
     public function store(Request $request)
@@ -49,6 +49,26 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::findOrFail($id);
         $this->authorize('delete', $restaurant);
         $restaurant->delete();
+
+        return response()->json(null, 204);
+    }
+
+    public function storeArea(Request $request, $restaurant_id, $area_id)
+    {
+        $restaurant = Restaurant::findOrFail($restaurant_id);
+        $this->authorize('update', $restaurant);
+
+        $restaurant->areas()->attach($area_id, ['area_id'=>$area_id]);
+
+        return response()->json($restaurant, 201);
+    }
+
+    public function deleteArea(Request $request, $restaurant_id, $area_id)
+    {
+        $restaurant = Restaurant::findOrFail($restaurant_id);
+        $this->authorize('delete', $restaurant);
+
+        $restaurant->menu_items()->detach($area_id);
 
         return response()->json(null, 204);
     }
