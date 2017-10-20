@@ -23,6 +23,17 @@ class CartController extends Controller
         $cart = Cart::with('menu_items')->findOrFail($user_id);
         $this->authorize('view', $cart);
 
+        $prices     = $cart->menu_items->pluck('price')->toArray();
+        $quantities = $cart->menu_items->pluck('quantity')->toArray();
+
+        $total = array();
+        foreach ($prices as $key => $price)
+        {
+            $total[] = $price * $quantities[$key];
+        }
+
+        $cart->total = array_sum($total);
+
         return $cart;
     }
 
@@ -45,9 +56,9 @@ class CartController extends Controller
         return response()->json($cart, 200);
     }
 
-    public function updateItem(Request $request, $cart_id, $item_id)
+    public function updateItem(Request $request, $user_id, $item_id)
     {
-        $cart = Cart::findOrFail($cart_id);
+        $cart = Cart::findOrFail($user_id);
         $this->authorize('update', $cart);
 
         $cart->menu_items()->updateExistingPivot($item_id, ['quantity'=>$request->quantity]);
@@ -55,9 +66,9 @@ class CartController extends Controller
         return response()->json($cart, 200);
     }
 
-    public function deleteItem(Request $request, $cart_id, $item_id)
+    public function deleteItem(Request $request, $user_id, $item_id)
     {
-        $cart = Cart::findOrFail($cart_id);
+        $cart = Cart::findOrFail($user_id);
         $this->authorize('delete', $cart);
 
         $cart->menu_items()->detach($item_id);
@@ -89,5 +100,19 @@ class CartController extends Controller
         }
 
         return response()->json($order, 201);
+    }
+
+    public function empty(Request $request, $user_id)
+    {
+        $cart = Cart::findOrFail($user_id);
+        $this->authorize('delete', $cart);
+        $menu_items_ids = $cart->menu_items->pluck('id')->toArray();
+
+        foreach ($menu_items_ids as $item_id)
+        {
+            $cart->menu_items()->detach($item_id);
+        }
+
+        return response()->json(null, 204);
     }
 }
