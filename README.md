@@ -45,18 +45,17 @@ Once you have access token, you can consume the API allowed for a user.
 ### Consuming
 
 #### Restaurant
-| Verb      | Path              | Action  | Route Name          |
-|-----------|-------------------|---------|---------------------|
-| GET       | restaurants       | index   | restaurants.index   |
-| POST      | restaurants       | store   | restaurants.store   |
-| GET       | restaurants{id}   | show    | restaurants.show    |
-| PUT/PATCH | restaurants{id}   | update  | restaurants.update  |
-| DELETE    | restaurants{id}   | destroy | restaurants.destroy |
-| DELETE    | restaurants{id}   | destroy | restaurants.destroy |
+| Verb      | Path              | Action  | Route Name          | Description                    |
+|-----------|-------------------|---------|---------------------|--------------------------------|
+| GET       | restaurants       | index   | restaurants.index   | Retrieve all restaurants       |
+| POST      | restaurants       | store   | restaurants.store   | Add new restaurant             |
+| GET       | restaurants{id}   | show    | restaurants.show    | Show restaurant with id={id}   |
+| PUT/PATCH | restaurants{id}   | update  | restaurants.update  | Edit restaurant with id={id}   |
+| DELETE    | restaurants{id}   | destroy | restaurants.destroy | Delete restaurant with id={id} |
 
 For Area relations with Restaurant
 
-| Verb   | Path                                         | Action      | Route Name             |
-|--------|----------------------------------------------|-------------|------------------------|
-| POST   | restaurants/{restaurant_id}/area/{area_id}   | store Area  | restaurants.storeArea  |
-| DELETE | restaurants/{restaurant_id}/area/{area_id}   | delete Area | restaurants.deleteArea |
+| Verb   | Path                                         | Action      | Route Name             | Description                                                        |
+|--------|----------------------------------------------|-------------|------------------------|--------------------------------------------------------------------|
+| POST   | restaurants/{restaurant_id}/area/{area_id}   | store Area  | restaurants.storeArea  | Add area with id={area_id} to restaurant with id={restaurant}      |
+| DELETE | restaurants/{restaurant_id}/area/{area_id}   | delete Area | restaurants.deleteArea | Delete area with id={area_id} from restaurant with id={restaurant} |
