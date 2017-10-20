@@ -45,17 +45,90 @@ Once you have access token, you can consume the API allowed for a user.
 ### Consuming
 
 #### Restaurant
-| Verb      | Path              | Action  | Route Name          | Description                    |
-|-----------|-------------------|---------|---------------------|--------------------------------|
-| GET       | restaurants       | index   | restaurants.index   | Retrieve all restaurants       |
-| POST      | restaurants       | store   | restaurants.store   | Add new restaurant             |
-| GET       | restaurants{id}   | show    | restaurants.show    | Show restaurant with id={id}   |
-| PUT/PATCH | restaurants{id}   | update  | restaurants.update  | Edit restaurant with id={id}   |
-| DELETE    | restaurants{id}   | destroy | restaurants.destroy | Delete restaurant with id={id} |
 
-For Area relations with Restaurant
+**Retrieve All Restaurant**
 
-| Verb   | Path                                         | Action      | Route Name             | Description                                                        |
-|--------|----------------------------------------------|-------------|------------------------|--------------------------------------------------------------------|
-| POST   | restaurants/{restaurant_id}/area/{area_id}   | store Area  | restaurants.storeArea  | Add area with id={area_id} to restaurant with id={restaurant}      |
-| DELETE | restaurants/{restaurant_id}/area/{area_id}   | delete Area | restaurants.deleteArea | Delete area with id={area_id} from restaurant with id={restaurant} |
+*Resquest*
+`GET /api/restaurants`
+
+*Parameters*
+No parameters
+
+*Permession Level*
+Guest
+***
+**Add new restaurant**
+*Resquest*
+`POST /api/restaurants`
+
+*Parameters*
+```
+{
+	name: 'restaurants-name',
+	manager_id: 'restaurants-manager-id'
+}
+```
+*Permession Level*
+Super-user
+***
+**Show restaurant with id={id}**
+*Resquest*
+`GET /api/restaurants{id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Guest
+***
+**Edit restaurant with id={id}**
+*Resquest*
+`PUT /api/restaurants{id}`
+
+*Parameters*
+```
+{
+	name: 'restaurants-name',
+	manager_id: 'restaurants-manager-id'
+}
+```
+
+*Permession Level*
+Manager
+
+***
+
+**Delete restaurant with id={id}**
+*Resquest*
+`DELETE /api/restaurants{id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Manager
+***
+**Add area with id={area_id} to restaurant with id={restaurant}**
+*Resquest*
+`POST /api/restaurants/{restaurant_id}/area/{area_id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Manager
+***
+**Delete area with id={area_id} from restaurant with id={restaurant}**
+*Resquest*
+`DELETE /api/restaurants/{restaurant_id}/area/{area_id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Manager
+#### Area
+
+#### Menus
+
+#### Orders
