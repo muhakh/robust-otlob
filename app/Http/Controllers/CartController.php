@@ -42,9 +42,6 @@ class CartController extends Controller
         $cart = Cart::findOrFail($user_id);
         $this->authorize('update', $cart);
 
-        $shipping_address = $request->shipping_address != NULL ? $request->shipping_address : $cart->shipping_address;
-        $cart->update(['shipping_address' => $shipping_address]);
-
         if (!empty($request->menu_items))
         {
             foreach ($request->menu_items as $key => $item_id)
