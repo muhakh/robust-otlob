@@ -58,6 +58,7 @@ No parameters
 Guest
 ***
 **Add new restaurant**
+
 *Resquest*
 `POST /api/restaurants`
 
@@ -72,6 +73,7 @@ Guest
 Super-user
 ***
 **Show restaurant with id={id}**
+
 *Resquest*
 `GET /api/restaurants{id}`
 
@@ -82,6 +84,7 @@ No Parameters
 Guest
 ***
 **Edit restaurant with id={id}**
+
 *Resquest*
 `PUT /api/restaurants{id}`
 
@@ -99,6 +102,7 @@ Manager
 ***
 
 **Delete restaurant with id={id}**
+
 *Resquest*
 `DELETE /api/restaurants{id}`
 
@@ -109,6 +113,7 @@ No Parameters
 Manager
 ***
 **Add area with id={area_id} to restaurant with id={restaurant}**
+
 *Resquest*
 `POST /api/restaurants/{restaurant_id}/area/{area_id}`
 
@@ -118,7 +123,9 @@ No Parameters
 *Permession Level*
 Manager
 ***
+
 **Delete area with id={area_id} from restaurant with id={restaurant}**
+
 *Resquest*
 `DELETE /api/restaurants/{restaurant_id}/area/{area_id}`
 
@@ -127,7 +134,9 @@ No Parameters
 
 *Permession Level*
 Manager
+
 #### Area
+
 **Retrieve All Area**
 
 *Resquest*
@@ -140,6 +149,7 @@ No parameters
 Guest
 ***
 **Add new area**
+
 *Resquest*
 `POST /api/areas`
 
@@ -154,8 +164,9 @@ Guest
 Super-user
 ***
 **Show area with id={id}**
+
 *Resquest*
-`GET /api/areas{id}`
+`GET /api/areas/{id}`
 
 *Parameters*
 No Parameters
@@ -164,8 +175,9 @@ No Parameters
 Guest
 ***
 **Edit area with id={id}**
+
 *Resquest*
-`PUT /api/areas{id}`
+`PUT /api/areas/{id}`
 
 *Parameters*
 ```
@@ -181,8 +193,9 @@ Super-user
 ***
 
 **Delete area with id={id}**
+
 *Resquest*
-`DELETE /api/areas{id}`
+`DELETE /api/areas/{id}`
 
 *Parameters*
 No Parameters
@@ -190,8 +203,11 @@ No Parameters
 *Permession Level*
 Super-user
 ***
+
 #### Menus
+
 **Add new menu item to restaurant with id={restaurant_id}**
+
 *Resquest*
 `POST /api/restaurants/{restaurant_id}/menu/items`
 
@@ -209,6 +225,7 @@ Manager
 ***
 
 **Edit menu item with id={item_id} of restaurant with id={restaurant_id}**
+
 *Resquest*
 `PUT /api/restaurants/{restaurant_id}/menu/items/{item_id}`
 
@@ -225,6 +242,7 @@ Manager
 Manager
 ***
 **Delete menu item with id={item_id} of restaurant with id={restaurant_id}**
+
 *Resquest*
 `DELETE /api/restaurants/{restaurant_id}/menu/items/{item_id}`
 
@@ -234,6 +252,212 @@ No Parameters
 *Permession Level*
 Manager
 ***
+
 #### Orders
 
+**Retrieve All Orders**
+
+*Resquest*
+`GET /api/orders`
+
+*Parameters*
+No parameters
+
+*Permession Level*
+Super-user
+***
+**Add new order**
+
+*Resquest*
+`POST /api/orders`
+
+*Parameters*
+```
+{
+	menu_items: [menu_items],  // List of menu_items_ids
+	quantity: [quantity], // Integer of integers
+	shipping_address: 'order-shipping_address'
+}
+```
+*Permession Level*
+User
+***
+**Show order with id={id}**
+
+*Resquest*
+`GET /api/orders/{id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Owner of order
+***
+**Edit order with id={id}**
+
+*Resquest*
+`PUT /api/orders/{id}`
+
+*Parameters*
+```
+{
+	menu_items: [menu_items],  // List of menu_items_ids
+	quantity: [quantity], // List of Integers
+	shipping_address: 'order-shipping_address'
+}
+```
+
+*Permession Level*
+Owner of order
+
+***
+
+**Delete order with id={id}**
+
+*Resquest*
+`DELETE /api/orders/{id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Owner of order
+***
+
+**Submit order with id={id}**
+
+*Resquest*
+`POST /api/orders/{id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Owner of order
+***
+
+**Edit item with id={item_id} of order with id={order_id}**
+
+*Resquest*
+`PUT orders/{order_id}/items/{item_id}`
+
+*Parameters*
+```
+{
+	quantity: quantity, // Integer
+}
+```
+*Permession Level*
+Owner of order
+***
+
+**Delete item with id={item_id} of order with id={order_id}**
+
+*Resquest*
+`DELETE orders/{order_id}/items/{item_id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Owner of order
+***
+
 #### Cart
+
+**Show cart for user with id={user_id}**
+
+*Resquest*
+`GET /api/users/{user_id}/cart`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+User
+***
+
+**Add item to cart for user with id={user_id}**
+
+*Resquest*
+`POST /api/users/{user_id}/cart/items/{item_id}`
+
+*Parameters*
+```
+{
+	quantity: quantity, // Integer
+}
+```
+
+*Permession Level*
+User
+***
+
+**Checkout items from cart for user with id={user_id}**
+
+*Resquest*
+`POST /api/users/{user_id}/cart/checkout`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+User
+***
+
+**Remove all items from cart for user with id={user_id}**
+
+*Resquest*
+`PUT /api/users/{user_id}/cart/empty`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+User
+***
+
+**Edit items in cart for user with id={user_id}**
+
+*Resquest*
+`PUT /api/users/{user_id}/cart`
+
+*Parameters*
+```
+{
+	menu_items: [menu_items],  // List of menu_items_ids
+	quantity: [quantity], // List of Integers
+}
+```
+
+*Permession Level*
+User
+***
+
+**Edit item with id={item_id} in cart for user with id={user_id}**
+
+*Resquest*
+`PUT /api/users/{user_id}/cart/items/{item_id}`
+
+*Parameters*
+```
+{
+	quantity: [quantity], // List of Integers
+}
+```
+
+*Permession Level*
+User
+***
+
+**Delete item with id={item_id} in cart for user with id={user_id}**
+
+*Resquest*
+`DELETE /api/users/{user_id}/cart/items/{item_id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+User
+***
