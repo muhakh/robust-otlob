@@ -20,6 +20,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Restaurant's Routes
 Route::resource('restaurants', 'RestaurantController',
                 ['except' => ['create', 'edit']]);
+Route::post('restaurants/{restaurant_id}/area/{area_id}', 'RestaurantController@storeArea');
+Route::delete('restaurants/{restaurant_id}/area/{area_id}', 'RestaurantController@deleteArea');
+// Area's Routes
+Route::resource('areas', 'AreaController',
+                ['except' => ['create', 'edit']]);
+
 
 // Menus Routes
 Route::post('restaurants/{restaurant_id}/menu/items', 'MenuController@store');
