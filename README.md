@@ -128,7 +128,112 @@ No Parameters
 *Permession Level*
 Manager
 #### Area
+**Retrieve All Area**
 
+*Resquest*
+`GET /api/areas`
+
+*Parameters*
+No parameters
+
+*Permession Level*
+Guest
+***
+**Add new area**
+*Resquest*
+`POST /api/areas`
+
+*Parameters*
+```
+{
+	name: 'areas-name',
+	city: 'city-name'
+}
+```
+*Permession Level*
+Super-user
+***
+**Show area with id={id}**
+*Resquest*
+`GET /api/areas{id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Guest
+***
+**Edit area with id={id}**
+*Resquest*
+`PUT /api/areas{id}`
+
+*Parameters*
+```
+{
+	name: 'areas-name',
+	city: 'city-name'
+}
+```
+
+*Permession Level*
+Super-user
+
+***
+
+**Delete area with id={id}**
+*Resquest*
+`DELETE /api/areas{id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Super-user
+***
 #### Menus
+**Add new menu item to restaurant with id={restaurant_id}**
+*Resquest*
+`POST /api/restaurants/{restaurant_id}/menu/items`
 
+*Parameters*
+```
+{
+	title :'item-title',
+	description 'item-description':,
+	price :'item-price',
+}
+```
+
+*Permession Level*
+Manager
+***
+
+**Edit menu item with id={item_id} of restaurant with id={restaurant_id}**
+*Resquest*
+`PUT /api/restaurants/{restaurant_id}/menu/items/{item_id}`
+
+*Parameters*
+```
+{
+	title :'item-title',
+	description 'item-description':,
+	price :'item-price',
+}
+```
+
+*Permession Level*
+Manager
+***
+**Delete menu item with id={item_id} of restaurant with id={restaurant_id}**
+*Resquest*
+`DELETE /api/restaurants/{restaurant_id}/menu/items/{item_id}`
+
+*Parameters*
+No Parameters
+
+*Permession Level*
+Manager
+***
 #### Orders
+
+#### Cart
