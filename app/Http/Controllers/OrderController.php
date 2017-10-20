@@ -25,15 +25,22 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Order::findOrFail($id)->with('menu_items')->first();
+        $order = Order::with('menu_items')->findOrFail($id);
         $this->authorize('view', $order);
+
         return $order;
     }
 
     public function store(Request $request)
     {
-        $order = Order::create(['user_id' => auth()->id()]);
-        $order->menu_items()->attach($request->menu_items);
+        $order = Order::create(['user_id' => auth()->id(),
+                                'shipping_address' => $request->shipping_address]);
+
+        foreach ($request->menu_items as $key => $item_id)
+        {
+            $order->menu_items()->attach($item_id, ['quantity'=>$request->quantity[$key]]);
+        }
+
         return response()->json($order, 201);
     }
 
@@ -41,7 +48,17 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $this->authorize('update', $order);
-        $order->update($request->all());
+
+        $shipping_address = $request->shipping_address != NULL ? $request->shipping_address : $order->shipping_address;
+        $order->update(['shipping_address' => $shipping_address]);
+
+        if (!empty($request->menu_items))
+        {
+            foreach ($request->menu_items as $key => $item_id)
+            {
+                $order->menu_items()->updateExistingPivot($item_id, ['quantity'=>$request->quantity[$key]]);
+            }
+        }
 
         return response()->json($order, 200);
     }
@@ -53,5 +70,35 @@ class OrderController extends Controller
         $order->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function updateItem(Request $request, $order_id, $item_id)
+    {
+        $order = Order::findOrFail($order_id);
+        $this->authorize('update', $order);
+
+        $order->menu_items()->updateExistingPivot($item_id, ['quantity'=>$request->quantity]);
+
+        return response()->json($order, 200);
+    }
+
+    public function deleteItem(Request $request, $order_id, $item_id)
+    {
+        $order = Order::findOrFail($order_id);
+        $this->authorize('delete', $order);
+
+        $order->menu_items()->detach($item_id);
+
+        return response()->json(null, 204);
+    }
+
+    public function submit($order_id)
+    {
+        $order = Order::findOrFail($order_id);
+        $this->authorize('update', $order);
+
+        $order->update(['is_submitted' => true]);
+
+        return response()->json($order, 200);
     }
 }
