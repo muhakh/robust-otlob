@@ -29,7 +29,14 @@ Route::delete('restaurants/{restaurant_id}/menu/items/{item_id}', 'MenuControlle
 // Order Routes
 Route::resource('orders', 'OrderController',
                 ['except' => ['create', 'edit']]);
+Route::post('orders/{id}', 'OrderController@submit');
+Route::put('orders/{order_id}/items/{item_id}', 'OrderController@updateItem');
+Route::delete('orders/{order_id}/items/{item_id}', 'OrderController@deleteItem');
 
 // Cart Routes
-Route::resource('carts', 'CartController',
-                ['except' => ['create', 'edit']]);
+Route::get('users/{user_id}/cart', 'CartController@show');
+Route::post('users/{user_id}/cart/items', 'CartController@storeItem');
+Route::post('users/{user_id}/cart/checkout', 'CartController@checkout');
+Route::put('users/{user_id}/cart', 'CartController@update');
+Route::put('users/{user_id}/cart/items/{item_id}', 'CartController@updateItem');
+Route::delete('users/{user_id}/cart/items/{item_id}', 'CartController@deleteItem');
