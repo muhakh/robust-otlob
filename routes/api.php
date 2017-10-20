@@ -43,6 +43,7 @@ Route::delete('orders/{order_id}/items/{item_id}', 'OrderController@deleteItem')
 Route::get('users/{user_id}/cart', 'CartController@show');
 Route::post('users/{user_id}/cart/items', 'CartController@storeItem');
 Route::post('users/{user_id}/cart/checkout', 'CartController@checkout');
+Route::post('users/{user_id}/cart/empty', 'CartController@empty');
 Route::put('users/{user_id}/cart', 'CartController@update');
 Route::put('users/{user_id}/cart/items/{item_id}', 'CartController@updateItem');
 Route::delete('users/{user_id}/cart/items/{item_id}', 'CartController@deleteItem');
