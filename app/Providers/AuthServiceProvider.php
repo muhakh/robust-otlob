@@ -19,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Cart'        => 'App\Policies\CartPolicy',
         'App\Restaurant'  => 'App\Policies\RestaurantPolicy',
         'App\MenuItem'    => 'App\Policies\MenuItemPolicy',
+        'App\Area'    => 'App\Policies\AreaPolicy',
     ];
 
     /**
