@@ -38,3 +38,25 @@ Data{
 	'scope' => '',
 }
 ```
+Once you have access token, you can consume the API allowed for a user.
+
+* Note: A super-user has access to all actions in the system, but I forget to implement a way to make a user become a super-user. The only way is via database insertsion.
+
+### Consuming
+
+#### Restaurant
+| Verb      | Path              | Action  | Route Name          |
+|-----------|-------------------|---------|---------------------|
+| GET       | restaurants       | index   | restaurants.index   |
+| POST      | restaurants       | store   | restaurants.store   |
+| GET       | restaurants{id}   | show    | restaurants.show    |
+| PUT/PATCH | restaurants{id}   | update  | restaurants.update  |
+| DELETE    | restaurants{id}   | destroy | restaurants.destroy |
+| DELETE    | restaurants{id}   | destroy | restaurants.destroy |
+
+For Area relations with Restaurant
+
+| Verb   | Path                                         | Action      | Route Name             |
+|--------|----------------------------------------------|-------------|------------------------|
+| POST   | restaurants/{restaurant_id}/area/{area_id}   | store Area  | restaurants.storeArea  |
+| DELETE | restaurants/{restaurant_id}/area/{area_id}   | delete Area | restaurants.deleteArea |
