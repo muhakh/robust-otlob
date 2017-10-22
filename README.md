@@ -7,6 +7,8 @@ You need to install `composer` and`laravel` then execute the following:
 - Run command `composer install`
 - Rename `.env.example` to `.env` and add your environment variables in it.
 - Run command `php artisan migrate`
+- Run command `php artisan key:generate`
+- Run command `php artisan passport:install` which will provide you with two OAuth clients. Save the Client ID and Client Secret for later use.
 
 And now you have installed the application.
 
