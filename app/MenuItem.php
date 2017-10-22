@@ -11,7 +11,7 @@ class MenuItem extends Model
     /**
      * Get the Restaurant that the Menu Item belongs to.
      */
-    public function restaurant()
+    public function restaurants()
     {
         return $this->belongsTo('App\Restaurant');
     }
