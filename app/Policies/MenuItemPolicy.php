@@ -17,9 +17,9 @@ class MenuItemPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user, $manager_id)
+    public function create(User $user, Restaurant $restaurant)
     {
-        return $user->id === $manager_id || $user->is_superuser == true;
+        return $user->id === $restaurant->manager_id || $user->is_superuser == true;
     }
 
     /**
