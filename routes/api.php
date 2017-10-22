@@ -35,7 +35,7 @@ Route::delete('restaurants/{restaurant_id}/menu/items/{item_id}', 'MenuControlle
 // Order Routes
 Route::resource('orders', 'OrderController',
                 ['except' => ['create', 'edit']]);
-Route::post('orders/{id}', 'OrderController@submit');
+Route::post('orders/{order_id}', 'OrderController@submit');
 Route::put('orders/{order_id}/items/{item_id}', 'OrderController@updateItem');
 Route::delete('orders/{order_id}/items/{item_id}', 'OrderController@deleteItem');
 
