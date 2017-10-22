@@ -7,6 +7,8 @@ You need to install `composer` and`laravel` then execute the following:
 - Run command `composer install`
 - Rename `.env.example` to `.env` and add your environment variables in it.
 - Run command `php artisan migrate`
+- Run command `php artisan key:generate`
+- Run command `php artisan passport:install` which will provide you with two OAuth clients. Save the Client ID and Client Secret for later use.
 
 And now you have installed the application.
 
@@ -75,7 +77,7 @@ Super-user
 **Show restaurant with id={id}**
 
 *Resquest*
-`GET /api/restaurants{id}`
+`GET /api/restaurants/{id}`
 
 *Parameters*
 No Parameters
@@ -86,7 +88,7 @@ Guest
 **Edit restaurant with id={id}**
 
 *Resquest*
-`PUT /api/restaurants{id}`
+`PUT /api/restaurants/{id}`
 
 *Parameters*
 ```
@@ -104,7 +106,7 @@ Manager
 **Delete restaurant with id={id}**
 
 *Resquest*
-`DELETE /api/restaurants{id}`
+`DELETE /api/restaurants/{id}`
 
 *Parameters*
 No Parameters
