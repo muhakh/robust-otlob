@@ -96,8 +96,8 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($order_id);
         $this->authorize('update', $order);
-
-        $order->update(['is_submitted' => true]);
+        $order->is_submitted = 1;
+        $order->save();
 
         return response()->json($order, 200);
     }
