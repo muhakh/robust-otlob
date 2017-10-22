@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\MenuItem;
+use App\Restaurant;
 
 class MenuController extends Controller
 {
@@ -17,26 +18,31 @@ class MenuController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $restaurant_id)
     {
-        $this->authorize('create', $request->manager_id, MenuItem::class);
-        $menu = MenuItem::create($request->all());
+        $restaurant = Restaurant::findOrFail($restaurant_id);
+        $this->authorize('create', $restaurant, MenuItem::class);
+        $data = $request->all();
+        $data['restaurant_id'] = $restaurant_id;
+        $menu = MenuItem::create($data);
         return response()->json($menu, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $restaurant_id, $item_id)
     {
-        $menu = MenuItem::findOrFail($id);
+        $menu = MenuItem::findOrFail($item_id);
         $this->authorize('update', $menu);
-        $menu->update($request->all());
+        $data = $request->all();
+        $data['restaurant_id'] = $restaurant_id;
+        $menu->update($data);
 
         return response()->json($menu, 200);
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $restaurant_id, $item_id)
     {
-        $menu = MenuItem::findOrFail($id);
-        $this->authorize('update', $menu);
+        $menu = MenuItem::findOrFail($item_id);
+        $this->authorize('delete', $menu);
         $menu->delete();
 
         return response()->json(null, 204);
