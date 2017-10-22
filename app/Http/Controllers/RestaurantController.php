@@ -14,7 +14,7 @@ class RestaurantController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api')->only(['store', 'update', 'destroy']);
+        $this->middleware('auth:api')->only(['store', 'update', 'destroy', 'storeArea', 'deleteArea']);
     }
 
     public function index()
@@ -56,6 +56,7 @@ class RestaurantController extends Controller
     public function storeArea(Request $request, $restaurant_id, $area_id)
     {
         $restaurant = Restaurant::findOrFail($restaurant_id);
+
         $this->authorize('update', $restaurant);
 
         $restaurant->areas()->attach($area_id, ['area_id'=>$area_id]);
