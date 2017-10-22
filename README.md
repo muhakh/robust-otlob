@@ -77,7 +77,7 @@ Super-user
 **Show restaurant with id={id}**
 
 *Resquest*
-`GET /api/restaurants{id}`
+`GET /api/restaurants/{id}`
 
 *Parameters*
 No Parameters
@@ -88,7 +88,7 @@ Guest
 **Edit restaurant with id={id}**
 
 *Resquest*
-`PUT /api/restaurants{id}`
+`PUT /api/restaurants/{id}`
 
 *Parameters*
 ```
@@ -106,7 +106,7 @@ Manager
 **Delete restaurant with id={id}**
 
 *Resquest*
-`DELETE /api/restaurants{id}`
+`DELETE /api/restaurants/{id}`
 
 *Parameters*
 No Parameters
